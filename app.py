@@ -38,10 +38,6 @@ else:
     st.info("📁 'images' directory not found. Background image disabled.")
     base64_image = None
 
-else:                                                          # 28
-    st.error("The 'images' folder was not found.")             # 29
-    base64_image = None                                        # 30
-
 st.markdown(                                                   # 32
     f"""                                                       # 33
     <style>                                                    # 34
