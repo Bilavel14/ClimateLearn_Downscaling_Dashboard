@@ -16,23 +16,28 @@ st.set_page_config(                              # 6
 )                                                # 9
 
 # ---------- 3. BACKGROUND IMAGE LOGIC ----------
-current_dir = os.path.dirname(os.path.abspath(__file__))       # 11
-image_folder = os.path.join(current_dir, "images")             # 12
 
-if os.path.exists(image_folder):                               # 14
-    image_files = [f for f in os.listdir(image_folder) if f.endswith(".png")]  # 15
-    if image_files:                                            # 16
-        selected_image = random.choice(image_files)            # 17
-        image_path = os.path.join(image_folder, selected_image)  # 18
+current_dir = os.path.dirname(os.path.abspath(__file__))
+image_folder = os.path.join(current_dir, "images")
 
-        def get_base64_of_image(image_path):                   # 20
-            with open(image_path, "rb") as img_file:           # 21
-                return base64.b64encode(img_file.read()).decode()  # 22
+if os.path.isdir(image_folder):
+    image_files = [f for f in os.listdir(image_folder) if f.endswith(".png")]
+    if image_files:
+        selected_image = random.choice(image_files)
+        image_path = os.path.join(image_folder, selected_image)
 
-        base64_image = get_base64_of_image(image_path)         # 24
-    else:                                                      # 25
-        st.warning("No PNG images found in the 'images' folder.")  # 26
-        base64_image = None                                    # 27
+        def get_base64_of_image(image_path):
+            with open(image_path, "rb") as img_file:
+                return base64.b64encode(img_file.read()).decode()
+
+        base64_image = get_base64_of_image(image_path)
+    else:
+        st.warning("📂 No PNG images found in the 'images' folder.")
+        base64_image = None
+else:
+    st.info("📁 'images' directory not found. Background image disabled.")
+    base64_image = None
+
 else:                                                          # 28
     st.error("The 'images' folder was not found.")             # 29
     base64_image = None                                        # 30
